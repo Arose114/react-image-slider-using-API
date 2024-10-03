@@ -1,10 +1,12 @@
 import './App.css';
-import StarRating from './StarRating';
+import ImageSlider from './Image Slider/ImageSlider';
+
 
 function App() {
   return (
     <div className="App">
-    <StarRating noOfStars={7} />
+  <h1>Hey there guy</h1>
+  <ImageSlider url={'https://picsum.photos/v2/list'} limit={10} />
        
     </div>
   );
