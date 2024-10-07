@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Getting Started with API in React
 
 Image Slider in react.
 

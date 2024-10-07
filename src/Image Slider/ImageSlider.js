@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { BsArrowRightCircleFill, BsArrowLeftCircleFill } from 'react-icons/bs'
+import './style.css'
 
 const ImageSlider = ({ url, limit }) => {
     const [images, setImages] = useState([])
@@ -27,6 +28,13 @@ const ImageSlider = ({ url, limit }) => {
         }
 
     }
+    function handlePrevImage(){
+        setCurrentSlide(currentSlide === 0 ? images.length-1 : currentSlide-1)
+    }
+
+    function handleNext(){
+        setCurrentSlide(currentSlide===images.length? 0 : currentSlide+1)
+    }
 
     useEffect(() => {
         if (url !== '') fetchImages(url);
@@ -44,20 +52,20 @@ const ImageSlider = ({ url, limit }) => {
 
     return (
         <div className='container'>
-            <BsArrowLeftCircleFill className='arrow arrow-left' />
+            <BsArrowLeftCircleFill onClick={handlePrevImage} className='arrow arrow-left' />
             {
-                images && images.length ? images.map((imageItem) => (
+                images && images.length ? images.map((imageItem,index) => (
                     <img src={imageItem.download_url}
                         key={imageItem.id}
                         alt={imageItem.download_url}
-                        className='current-slide' />
+                        className={currentSlide===index? 'current-image' : 'current-image hide-current-image'} />
                 )) : null
 
             }
 
-            <BsArrowRightCircleFill className='arrow arrow-right' />
+            <BsArrowRightCircleFill onClick={handleNext} className='arrow arrow-right' />
             <span className='circle-indicators'>
-                {images && images.length ? images.map((_, index) => <button className='current-indicator' key={index}> </button>
+                {images && images.length ? images.map((_, index) => <button className={currentSlide===index?'current-indicator': 'current-indicator inactive'} key={index} onClick={()=>setCurrentSlide(index)}> </button>
                 ) : null}
             </span>
         </div>
